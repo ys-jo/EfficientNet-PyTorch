@@ -215,6 +215,7 @@ class EfficientNet(nn.Module):
             self._dropout = nn.Dropout(self._global_params.dropout_rate)
             self._fc = nn.Linear(out_channels, self._global_params.num_classes)
 
+
         # set activation to memory efficient swish by default
         self._swish = MemoryEfficientSwish()
 
@@ -318,6 +319,7 @@ class EfficientNet(nn.Module):
             x = x.flatten(start_dim=1)
             x = self._dropout(x)
             x = self._fc(x)
+            x = torch.argmax(x, dim=1 )
         return x
 
     @classmethod
