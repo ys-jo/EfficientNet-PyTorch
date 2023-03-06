@@ -25,7 +25,7 @@ def load_img(image_path):
 
 
 if __name__ == "__main__":
-    sess = InferenceSession("test-b3.onnx")
+    sess = InferenceSession("efficientnet-b3.onnx")
     input_name = sess.get_inputs()[0].name
     image_path = "sample2.jpg"
     PIL_img = load_img(image_path)

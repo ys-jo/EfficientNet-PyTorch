@@ -14,8 +14,10 @@ from sotabencheval.utils import is_server
 if is_server():
     DATA_ROOT = DATA_ROOT = os.environ.get('IMAGENET_DIR', './imagenet')  # './.data/vision/imagenet'
 else: # local settings
-    DATA_ROOT = os.environ['IMAGENET_DIR']
-    assert bool(DATA_ROOT), 'please set IMAGENET_DIR environment variable'
+    print("local setting")
+    #DATA_ROOT = os.environ['IMAGENET_DIR']
+    #assert bool(DATA_ROOT), 'please set IMAGENET_DIR environment variable'
+    DATA_ROOT = "/home/ysjo/dataset/dataset/ImageNet/"
     print('Local data root: ', DATA_ROOT)
 
 model_name = 'EfficientNet-B5'

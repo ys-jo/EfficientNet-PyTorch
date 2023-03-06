@@ -31,7 +31,7 @@ def load_img(image_path):
 
 
 if __name__ == "__main__":
-    sess = InferenceSession("test-b3.onnx")
+    sess = InferenceSession("test-b3-2.onnx")
     input_name = sess.get_inputs()[0].name
 
     t = []
@@ -47,18 +47,21 @@ if __name__ == "__main__":
     class_names.sort()
     dataloader = DataLoader(dataset,
                         pin_memory=True,
-                        batch_size=1,
+                        batch_size=12,
                         num_workers=12)
     cnt = 0
     correct = 0
 
     for i, batch in enumerate(tqdm(dataloader)):
         x, y = batch
-        x = x.numpy()
-        y = y.numpy()
-        #x = np.expand_dims(x, 0)
-        result = sess.run(None, {input_name: x})
-        cnt +=1
-        if result == y:
-            correct +=1
+        if x.shape[0] == 12:
+            x = x.numpy()
+            y = y.numpy()
+            #x = np.expand_dims(x, 0)
+            result = sess.run(None, {input_name: x})
+            cnt += x.shape[0]
+            c = result == y
+            correct += c.sum().item()
+        else:
+            pass
     print(correct/cnt)
